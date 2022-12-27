@@ -7,13 +7,14 @@ sur dataLogger Arduino Nano, carte SD et RTC DS1307
 
 */
 
+#define SAMPLE_DURATION  5000
 
 #include <Arduino.h>
 
 // Bibliothèque et initialisation capteur DHT22
 #include <SimpleDHT.h>
 
-int pinDHT22 = 10;
+int pinDHT22 = 11;
 SimpleDHT22 dht22(pinDHT22);
 
 // Bibliothèque et initialisation horloge DS1307
@@ -24,8 +25,6 @@ RTC_DS1307 rtc;
 // Bilbliothèque et initialisation carte micro SD
 #include <SPI.h>
 #include <SD.h>
-
-File myFile;
 
 long mem_time = 0L;
 
@@ -50,6 +49,15 @@ void setup() {
     // rtc.adjust(DateTime(2014, 1, 21, 3, 0, 0));
   }
 
+  // Initialisation de la carte SD
+  Serial.print("Initializing SD card...");
+
+  if (!SD.begin(10)) {
+    Serial.println("initialization failed!");
+    while (1);
+  }
+  Serial.println("initialization done.");
+
   DateTime now = rtc.now();
   char date[] = "YY-MM-DD";
   char time[] = "hh:mm:ss";
@@ -58,51 +66,59 @@ void setup() {
   String line = String("Record on " + record_date + " at " + record_time + " local time.");
   Serial.println("------");
   Serial.println(line);
+
+  // Creation d'un dossier sur la carte SD
+  //SD.mkdir(record_date);
   
   mem_time = millis();
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  
-  // formatage de la chaine d'horodatage des échantillons 
-  String date = ""; 
-  DateTime now = rtc.now();
-  char sample_date[] = "YYYY/MM/DD, hh:mm:ss";
 
+  if ((millis() - mem_time) > SAMPLE_DURATION) {
 
-  
-  // read without samples.
-  // @remark We use read2 to get a float data, such as 10.1*C
-  //    if user doesn't care about the accurate data, use read to get a byte data, such as 10*C.
-  float temperature = 0;
-  float humidity = 0;
-  int err = SimpleDHTErrSuccess;
+    // formatage de la chaine d'horodatage des échantillons 
+    String date = ""; 
+    DateTime now = rtc.now();
+    char sample_date[] = "YYYY/MM/DD, hh:mm:ss";
 
-  String ligne; // Ligne de données à afficher
-  ligne = "";
-  if ((err = dht22.read2(&temperature, &humidity, NULL)) != SimpleDHTErrSuccess) {
-    //Serial.print("Read DHT22 failed, err="); Serial.print(SimpleDHTErrCode(err));
-    //Serial.print(","); Serial.println(SimpleDHTErrDuration(err)); delay(2000);
-    ligne += now.toString(sample_date);
-    ligne += ", ";
-    ligne += "Read DHT22 failed, err = ";
-    ligne += SimpleDHTErrCode(err);
-    ligne += ", ";
-    ligne += SimpleDHTErrDuration(err);
+    // Lecture du capteur DHT22
+    float temperature = 0;
+    float humidity = 0;
+    int err = SimpleDHTErrSuccess;
+
+    String line; // Ligne de données à afficher
+    line = "";
+    if ((err = dht22.read2(&temperature, &humidity, NULL)) != SimpleDHTErrSuccess) {
+      //Serial.print("Read DHT22 failed, err="); Serial.print(SimpleDHTErrCode(err));
+      //Serial.print(","); Serial.println(SimpleDHTErrDuration(err)); delay(2000);
+      line += now.toString(sample_date);
+      line += ", ";
+      line += "Read DHT22 failed, err = ";
+      line += SimpleDHTErrCode(err);
+      line += ", ";
+      line += SimpleDHTErrDuration(err);
+    }
+    else {
+      line += now.toString(sample_date);
+      line += ", ";
+      line += ((float)temperature);
+      line += ", ";
+      line += ((float)humidity);
+    }
+
+    File dataFile = SD.open("record.txt", FILE_WRITE);
+    // if the file is available, write to it:
+    if (dataFile) {
+      dataFile.println(line);
+      dataFile.close();
+      Serial.println(line);
+    }
+    // if the file isn't open, pop up an error:
+    else {
+      Serial.println("error opening record.txt");
+    }
+    mem_time = millis();
   }
-  else {
-    ligne += now.toString(sample_date);
-    ligne += ", ";
-    ligne += ((float)temperature);
-    ligne += ", ";
-    ligne += ((float)humidity);
-  }
   
-  //Serial.print((float)temperature); Serial.print(" *C, ");
-  //Serial.print((float)humidity); Serial.println(" RH%");
-  Serial.println(ligne);
-  
-  // DHT22 sampling rate is 0.5HZ.
-  delay(2500);
 }
