@@ -14,7 +14,7 @@ sur dataLogger Arduino Nano, carte SD et RTC DS1307
 // Bibliothèque et initialisation capteur DHT22
 #include <SimpleDHT.h>
 
-int pinDHT22 = 11;
+int pinDHT22 = 3;
 SimpleDHT22 dht22(pinDHT22);
 
 // Bibliothèque et initialisation horloge DS1307
@@ -27,6 +27,8 @@ RTC_DS1307 rtc;
 #include <SD.h>
 
 long mem_time = 0L;
+
+String record_date;
 
 void setup() {
   // Démarrage liaison série
@@ -61,7 +63,7 @@ void setup() {
   DateTime now = rtc.now();
   char date[] = "YY-MM-DD";
   char time[] = "hh:mm:ss";
-  String record_date = now.toString(date);
+  record_date = now.toString(date);
   String record_time = now.toString(time);
   String line = String("Record on " + record_date + " at " + record_time + " local time.");
   Serial.println("------");
@@ -106,7 +108,6 @@ void loop() {
       line += ", ";
       line += ((float)humidity);
     }
-
     File dataFile = SD.open("record.txt", FILE_WRITE);
     // if the file is available, write to it:
     if (dataFile) {
