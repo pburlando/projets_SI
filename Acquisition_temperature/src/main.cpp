@@ -7,7 +7,7 @@ sur dataLogger Arduino Nano, carte SD et RTC DS1307
 
 */
 
-#define SAMPLE_DURATION  5000
+#define SAMPLE_PERIOD  15000
 
 #include <Arduino.h>
 
@@ -28,21 +28,26 @@ RTC_DS1307 rtc;
 
 long mem_time = 0L;
 
-String record_date;
+String full_path;
+
+void flash(int nb);
 
 void setup() {
+
+  pinMode(LED_BUILTIN, OUTPUT);
+
   // Démarrage liaison série
   Serial.begin(9600);
 
   // Démarrage et mise à l'heure RTC DS1307
   if (! rtc.begin()) {
-      Serial.println("Couldn't find RTC");
+      Serial.println(F("Couldn't find RTC"));
       Serial.flush();
-      while (1) delay(10);
+      flash(1); //Programme bloqué. Un flash toutes les 2 secondes
     }
 
   if (! rtc.isrunning()) {
-    Serial.println("RTC is NOT running, let's set the time!");
+    Serial.println(F("RTC is NOT running, let's set the time!"));
     // When time needs to be set on a new device, or after a power loss, the
     // following line sets the RTC to the date & time this sketch was compiled
     rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
@@ -52,32 +57,48 @@ void setup() {
   }
 
   // Initialisation de la carte SD
-  Serial.print("Initializing SD card...");
+  Serial.print(F("Initializing SD card..."));
 
   if (!SD.begin(10)) {
-    Serial.println("initialization failed!");
-    while (1);
+    Serial.println(F("initialization failed!"));
+    flash(2); //Programme bloqué. Un flash toutes les 2 secondes
   }
-  Serial.println("initialization done.");
+  Serial.println(F("initialization done."));
 
   DateTime now = rtc.now();
   char date[] = "YY-MM-DD";
   char time[] = "hh:mm:ss";
-  record_date = now.toString(date);
+  String record_date = now.toString(date);
   String record_time = now.toString(time);
-  String line = String("Record on " + record_date + " at " + record_time + " local time.");
-  Serial.println("------");
-  Serial.println(line);
+  String line = String("Record on " + record_date + " at " + record_time + " local time." + " Sample period = " + SAMPLE_PERIOD/1000 + " s");
+  String header = F("date, time, temperature, hygrometry");
 
-  // Creation d'un dossier sur la carte SD
-  //SD.mkdir(record_date);
-  
+  // Creation d'un dossier et du fichier d'enregistrement sur la carte SD
+  if (! SD.exists(record_date.c_str())) {
+    SD.mkdir(record_date.c_str());
+  }   
+  full_path = "/" + record_date + "/record.txt";
+  File dataFile = SD.open(full_path.c_str(), FILE_WRITE);
+  // if the file is available, write to it:
+  if (dataFile) {
+    dataFile.println(line);
+    dataFile.println(header);
+    dataFile.close();
+    Serial.println(line);
+    Serial.println(header);
+  }
+  // if the file isn't open, pop up an error:
+  else {
+    Serial.println(F("error opening file"));
+    flash(3); //Programme bloqué. Un flash toutes les 2 secondes
+  }
+
   mem_time = millis();
 }
 
 void loop() {
 
-  if ((millis() - mem_time) > SAMPLE_DURATION) {
+  if ((millis() - mem_time) > SAMPLE_PERIOD) {
 
     // formatage de la chaine d'horodatage des échantillons 
     String date = ""; 
@@ -95,10 +116,10 @@ void loop() {
       //Serial.print("Read DHT22 failed, err="); Serial.print(SimpleDHTErrCode(err));
       //Serial.print(","); Serial.println(SimpleDHTErrDuration(err)); delay(2000);
       line += now.toString(sample_date);
-      line += ", ";
-      line += "Read DHT22 failed, err = ";
+      line += F(", ");
+      line += F("Read DHT22 failed, err = ");
       line += SimpleDHTErrCode(err);
-      line += ", ";
+      line += F(", ");
       line += SimpleDHTErrDuration(err);
     }
     else {
@@ -108,7 +129,7 @@ void loop() {
       line += ", ";
       line += ((float)humidity);
     }
-    File dataFile = SD.open("record.txt", FILE_WRITE);
+    File dataFile = SD.open(full_path, FILE_WRITE);
     // if the file is available, write to it:
     if (dataFile) {
       dataFile.println(line);
@@ -117,9 +138,26 @@ void loop() {
     }
     // if the file isn't open, pop up an error:
     else {
-      Serial.println("error opening record.txt");
+      Serial.println(F("error opening file"));
+      flash(4); //Programme bloqué. Un flash toutes les 2 secondes
     }
     mem_time = millis();
   }
   
+}
+
+// Fonction piège pour signaler une erreur
+// Bloque l'exécution du programme et fait clignoter la led interne nb fois
+void flash(int nb) {
+  Serial.print("Erreur code ");
+  Serial.print(nb);
+  while(1) {
+    for(int i=0; i < 3; i++){
+      digitalWrite(LED_BUILTIN, HIGH);
+      delay(100);
+      digitalWrite(LED_BUILTIN, LOW);
+      delay(500);
+    }
+    delay(1000);
+  }
 }
