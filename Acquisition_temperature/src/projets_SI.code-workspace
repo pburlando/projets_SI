@@ -6,6 +6,13 @@
 		{
 			"name": "Acquisition_temperature",
 			"path": ".."
+		},
+		{
+			"name": "CdeAT_BT_mod",
+			"path": "../../../../PlatformIO/Projects/CdeAT_BT_mod"
+		},
+		{
+			"path": "../../../../PlatformIO/Projects/BTI"
 		}
 	],
 	"settings": {}
