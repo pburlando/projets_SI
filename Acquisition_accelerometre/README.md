@@ -10,3 +10,12 @@
 
 ### Bibliothèques : 
   - voir platformio.ini
+  - tockn/MPU6050_tockn@^1.5.2 https://github.com/tockn/MPU6050_tockn
+  - arduino-libraries/SD@^1.2.4 https://github.com/arduino-libraries/SD
+
+#### Algorithme
+Ouvrir la carte SD
+Récuperer le nombre de fichiers à la racine
+créer un fichier avec le nom "Acquis" + (nb_fichier+1)
+ouvrir le fichier créé
+calculer le nombre d'itérations à enregistrer selon la période d'échantillonage

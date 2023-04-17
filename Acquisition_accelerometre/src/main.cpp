@@ -9,7 +9,6 @@ sur carte micro_sd
 #include <Wire.h>
 #include <MPU6050_tockn.h>
 
-
 // set up variables using the SD utility library functions:
 Sd2Card card;
 
@@ -20,99 +19,129 @@ Sd2Card card;
 // Sparkfun SD shield: pin 8
 const int chipSelect = 10;
 
+const uint32_t tsample = 20;
+const uint16_t trecord = 20;
+const uint32_t iterations = trecord*1000/tsample;
 
 
 
-File monFichier;
+String full_path;
 
 MPU6050 mpu6050(Wire);
 
-long timer = 0;
+long memTime = 0L;
+uint8_t nb_files = 0;
 
+uint16_t nb_samples;
+
+bool ledState;
+
+uint8_t countFiles(File dir);
  
 void setup() {
-  char buffer[80]; // Pour stocker les valeurs à écrire dans la carte SD
+  pinMode(LED_BUILTIN, OUTPUT);
 
   Serial.begin(9600); //Vitesse de transmission
 
   Wire.begin();
   mpu6050.begin();
-  mpu6050.calcGyroOffsets(true);
+  //digitalWrite(LED_BUILTIN, HIGH);
+  //mpu6050.calcGyroOffsets(true);  // Laisser la centrale inertielle immobile pendant le calibrage
+  //digitalWrite(LED_BUILTIN, LOW);
 
-  // Initialisations
-  Serial.print("\nInitializing SD card...");
 
-  // we'll use the initialization code from the utility libraries
-  // since we're just testing if the card is working!
-  if (!card.init(SPI_HALF_SPEED, chipSelect)) {
-    Serial.println("initialization failed. Things to check:");
-    Serial.println("* is a card inserted?");
-    Serial.println("* is your wiring correct?");
-    Serial.println("* did you change the chipSelect pin to match your shield or module?");
-    return;
-  } else {
-    Serial.println("Wiring is correct and a card is present.");
+  // Initialisation de la carte SD
+  Serial.println(F("Initializing SD card..."));
+
+  if (!SD.begin(chipSelect)) {
+    Serial.println(F("initialization failed!"));
+    while(true);
   }
 
-
- 
-
+  Serial.println(F("initialization done."));
   
-  // Ecriture dans un fichier
-  
+  // Compter le nombre de fichiers à la racine de la carte SD
+  File root = SD.open("/");
+  nb_files = countFiles(root);
+  if (nb_files == 99) {
+    Serial.println("Too many files");
+    while (true);    
+  }
 
-  
-  SD.begin();
+// Ecriture dans un fichier
+  String file_name = "/Acq";
+  String extension = ".txt";
+  full_path = file_name + nb_files + extension; 
+  Serial.print("filename: ");
+  Serial.println(full_path.c_str());
 
-  monFichier = SD.open("testEc.txt", FILE_WRITE); //Attention Nom de fichier format 8.3 (8 caractères pour le nom et 3 pour l'extension pas d'espace ...)
+  File monFichier = SD.open(full_path.c_str(), FILE_WRITE); //Attention Nom de fichier format 8.3 (8 caractères pour le nom et 3 pour l'extension pas d'espace ...) 
   if(monFichier) {
-    int avant = millis();
-    // Acquisition des 1024 valeurs
-    for(int i = 0; i < 1024; i++) { 
-      
-      mpu6050.update();
-
-      if(millis() - timer > 20){
-        
-        // Préparer une chaine de caractère avec Sprintf enregistrer les valeurs brutes en hexadécimal
-        sprintf(buffer, "%d \t %d \t %d", mpu6050.getRawAccX(), mpu6050.getRawAccY(), mpu6050.getRawAccZ() );
-        Serial.println(buffer);
-        monFichier.println(buffer);
-        timer = millis();
-        
-      }
-
-    }
-    int temps = millis() - avant;
-    monFichier.close(); // Fermer le fichier
-    Serial.print(F("1ko ecrit en "));
-    Serial.print(temps);
-    Serial.println(" ms");
+    monFichier.println("Demarrage...");
+    monFichier.close();
   }
   else {
-    Serial.println("Erreur d'écriture");
+    Serial.println("Erreur IO");
   }
-
-  
-  
-  
-  //Lecture du fichier
-//  Serial.println("Tentavive de lecture");
-//  if(monFichier = SD.open("testEc.txt",FILE_READ)) { 
-//    while(monFichier.available()) {
-//      Serial.write(monFichier.read());  
-//    }
-//   
-//    monFichier.close(); // Fermer le fichier
-//  }
-//  else
-//    Serial.println("Erreur de lecture");
-    
-
-  
 }
  
 void loop() {
-  
+  String ligne;
+  String sep =",\t";
+  if(millis() - memTime >= tsample){
+    memTime = millis();
+    mpu6050.update();
+    // Préparer une chaine de caractère avec Sprintf enregistrer les valeurs brutes en hexadécimal
+    //sprintf(line, "%d \t %d \t %d \t %d", nb_samples, mpu6050.getRawAccX(), mpu6050.getRawAccY(), mpu6050.getRawAccZ() );
+ 
+    ligne += nb_samples;
+    ligne += sep;
+    ligne += mpu6050.getAccX();
+    ligne += sep;
+    ligne += mpu6050.getAccY();
+    ligne += sep;
+    ligne += mpu6050.getAccZ();
 
+    Serial.println(ligne);
+    File monFichier = SD.open(full_path.c_str(), FILE_WRITE);
+    if(monFichier) {
+      monFichier.println(ligne);
+      monFichier.close();
+    }
+    else {
+      Serial.println("Erreur IO");
+    }
+    
+    nb_samples++;
+  }
+
+  if (nb_samples%10 == 0) {
+    // Tous les 10 échantillons
+    ledState = !ledState;
+    digitalWrite(LED_BUILTIN, ledState);
+  }
+
+  if (nb_samples == iterations) {
+    while(true);
+  }
+
+}
+
+
+uint8_t countFiles(File dir) {
+  // Retourne le nombre de fichier d'un dossier
+  uint8_t nbFiles = 0;
+  while (true) {
+    File entry =  dir.openNextFile();
+    if (! entry) {
+      // no more files
+      return nbFiles;
+    }
+
+    if (entry.isDirectory() == 0) {
+      // entry is a file
+      nbFiles++;
+    } 
+    entry.close();
+  }
 }
