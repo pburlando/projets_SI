@@ -13,12 +13,16 @@
   - tockn/MPU6050_tockn@^1.5.2 https://github.com/tockn/MPU6050_tockn
   - arduino-libraries/SD@^1.2.4 https://github.com/arduino-libraries/SD
 
-#### Algorithme
+### Algorithme
 - Ouvrir la carte SD
 - Récuperer le nombre de fichiers à la racine
 - créer un fichier avec le nom "Acq" + (nb_fichier+1)
 - ouvrir le fichier créé
 - calculer le nombre d'itérations à enregistrer selon la période d'échantillonage
 - répéter pour le nombre d'itérations nécessaires :
-- - Enregistrer dans la carte SD les accélérations sur X, Y et Z
-- - Envoyer les données sur le moniteur série
+ - Enregistrer dans la carte SD les accélérations sur X, Y et Z
+ - Envoyer les données sur le moniteur série
+
+### A faire
+- indiquer la configuration de la centrale inertielle
+- enregistrer toutes les données
