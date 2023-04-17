@@ -14,8 +14,11 @@
   - arduino-libraries/SD@^1.2.4 https://github.com/arduino-libraries/SD
 
 #### Algorithme
-Ouvrir la carte SD
-Récuperer le nombre de fichiers à la racine
-créer un fichier avec le nom "Acquis" + (nb_fichier+1)
-ouvrir le fichier créé
-calculer le nombre d'itérations à enregistrer selon la période d'échantillonage
+- Ouvrir la carte SD
+- Récuperer le nombre de fichiers à la racine
+- créer un fichier avec le nom "Acq" + (nb_fichier+1)
+- ouvrir le fichier créé
+- calculer le nombre d'itérations à enregistrer selon la période d'échantillonage
+- répéter pour le nombre d'itérations nécessaires :
+- - Enregistrer dans la carte SD les accélérations sur X, Y et Z
+- - Envoyer les données sur le moniteur série
