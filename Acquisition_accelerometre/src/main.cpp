@@ -9,6 +9,7 @@ sur carte micro_sd
 #include <Wire.h>
 #include <MPU6050_tockn.h>
 
+
 // set up variables using the SD utility library functions:
 Sd2Card card;
 
@@ -19,37 +20,39 @@ Sd2Card card;
 // Sparkfun SD shield: pin 8
 const int chipSelect = 10;
 
-const uint32_t tsample = 20; // Période d'échantillonage en ms
+const uint32_t tsample = 100; // Période d'échantillonage en ms
 const uint16_t trecord = 5; // Temps d'enregistrement en seconde
 const uint32_t iterations = trecord*1000/tsample; // Nombre d'enregistrement à réaliser
 
-
+const int ledPin = 2;
 
 
 
 MPU6050 mpu6050(Wire);
 
 // Variables globales
-long memTime = 0L;
+unsigned long memTime = 0L;
+unsigned long chrono = 0L;
 uint16_t nb_samples;
 bool ledState;
 String full_path;
 uint8_t nb_files = 0;
+const String sep = ",\t";
 
 // Fonctions
 uint8_t countFiles(File dir);
 
  
 void setup() {
-  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(ledPin, OUTPUT);
 
-  Serial.begin(115200); //Vitesse de transmission
+  Serial.begin(250000); //Vitesse de transmission
 
   Wire.begin();
   mpu6050.begin();
-  //digitalWrite(LED_BUILTIN, HIGH);
-  //mpu6050.calcGyroOffsets(true);  // Laisser la centrale inertielle immobile pendant le calibrage
-  //digitalWrite(LED_BUILTIN, LOW);
+  digitalWrite(ledPin, HIGH);
+  mpu6050.calcGyroOffsets(true);  // Laisser la centrale inertielle immobile pendant le calibrage
+  digitalWrite(ledPin, LOW);
 
 
   // Initialisation de la carte SD
@@ -81,8 +84,10 @@ void setup() {
   te += tsample;
   te += F(" ms");
 
+  Serial.println(te);
+
   // Préparation de la chaine d'en-tête
-  String header = F("Num, \t AccX, \t AccY, \t AccZ");
+  String header = F("Num, \t AccX(G), \t AccY, \t AccZ, \t gyroX(deg/s), \t gyroY, \t gyroZ, \t, angleX(deg), \t angleY, \t angleZ, \t temp(degC) ");
   Serial.print("filename: ");
   Serial.println(full_path.c_str());
 
@@ -95,13 +100,15 @@ void setup() {
   else {
     Serial.println(F("Erreur IO"));
   }
+  memTime = millis();
+  chrono = memTime;
 }
  
 void loop() {
-  String ligne;
-  String sep =",\t";
-  if(millis() - memTime >= tsample){
+  
+  if(millis() - memTime > tsample){
     memTime = millis();
+    String ligne;
     mpu6050.update();
     ligne += nb_samples;
     ligne += sep;
@@ -110,7 +117,20 @@ void loop() {
     ligne += mpu6050.getAccY();
     ligne += sep;
     ligne += mpu6050.getAccZ();
-
+    ligne += sep;
+    ligne += mpu6050.getGyroX();
+    ligne += sep;
+    ligne += mpu6050.getGyroY();
+    ligne += sep;
+    ligne += mpu6050.getGyroZ();
+    ligne += sep;
+    ligne += mpu6050.getAngleX();
+    ligne += sep;
+    ligne += mpu6050.getAngleY();
+    ligne += sep;
+    ligne += mpu6050.getAngleZ();
+    ligne += sep;
+    ligne += mpu6050.getTemp();  
     Serial.println(ligne);
     File monFichier = SD.open(full_path.c_str(), FILE_WRITE);
     if(monFichier) {
@@ -121,17 +141,24 @@ void loop() {
       Serial.println(F("Erreur IO"));
     }
     
+    if ((nb_samples%10) == 0) {
+      // Tous les 10 échantillons changer l'état de la diode
+      digitalWrite(LED_BUILTIN, ledState);
+      digitalWrite(ledPin, ledState);
+      ledState = !ledState;
+    }
+    
     nb_samples++;
   }
 
-  if ((nb_samples%20) == 0) {
-    // Tous les 50 échantillons
-    ledState = !ledState;
-    digitalWrite(LED_BUILTIN, ledState);
-    Serial.println(ledState);
-  }
+
 
   if (nb_samples == iterations) {
+    unsigned long record_time = millis() - chrono;
+    Serial.print(F("Recording time "));
+    Serial.print(record_time);
+    Serial.println(F(" ms."));
+    digitalWrite(ledPin, 0);
     while(true);
   }
 
