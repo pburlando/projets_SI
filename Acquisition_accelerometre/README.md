@@ -1,7 +1,7 @@
 # Acquisition des données d'une centrale initertielle MPU6050
 
 ### Objectifs :
-  - Enregistrer sur une carte SD les données d'une centrale inertielle à intervalle régulier.
+  - Enregistrer sur une carte SD les données d'une centrale inertielle MPU6050 à intervalle régulier.
   
 ### Architecture :
   - Carte datalogger nano www.deek-robot.com: carte SD, RTC DS1307
@@ -20,12 +20,11 @@
 - lancer la calibration du gyroscope
 - répéter pour le nombre d'itérations nécessaires :
   - Lire toutes les données fournies par le MPU6050
-  - Enregistrer dans la carte SD les accélérations sur X, Y et Z
+  - Enregistrer dans la carte SD les données au format CSV
   - Envoyer les données sur le moniteur série
 
 ### A faire
-- indiquer la configuration de la centrale inertielle
-- enregistrer toutes les données
+- Schéma électrique
 
 ### Configuration du MPU6050 avec la bibliothèque tockn/MPU6050_tockn@^1.5.2
 - writeMPU6050(MPU6050_SMPLRT_DIV, 0x00); // Configuration de la fréquence d'échantillonage des mesures à Fs_gyro = 8 kHz
