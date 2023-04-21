@@ -1,11 +1,12 @@
 /*
 Acquisition des données d'un accéléromètre
 sur carte micro_sd
+Arduino Nano
 */
 
 #include <Arduino.h>
-#include <SPI.h> //Librairie
-#include <SD.h> //Librairie
+#include <SPI.h>
+#include <SD.h> 
 #include <Wire.h>
 #include <MPU6050_tockn.h>
 
@@ -45,9 +46,7 @@ uint8_t countFiles(File dir);
  
 void setup() {
   pinMode(ledPin, OUTPUT);
-
-  Serial.begin(250000); //Vitesse de transmission
-
+  Serial.begin(250000);
   Wire.begin();
   mpu6050.begin();
   digitalWrite(ledPin, HIGH);
@@ -79,7 +78,7 @@ void setup() {
   String extension = F(".txt");
   full_path = file_name + nb_files + extension;
 
-  // Préparation de la chaine période échantillonage
+  // Préparation de la chaine qui indique la période échantillonage
   String te = F("Te = ");
   te += tsample;
   te += F(" ms");
@@ -143,15 +142,12 @@ void loop() {
     
     if ((nb_samples%10) == 0) {
       // Tous les 10 échantillons changer l'état de la diode
-      digitalWrite(LED_BUILTIN, ledState);
       digitalWrite(ledPin, ledState);
       ledState = !ledState;
     }
     
     nb_samples++;
   }
-
-
 
   if (nb_samples == iterations) {
     unsigned long record_time = millis() - chrono;
@@ -164,6 +160,10 @@ void loop() {
 
 }
 
+/************************************************
+ * Fonction pour compter le nombre de fichiers
+ * à la racine de la carte SD
+ * **********************************************/
 
 uint8_t countFiles(File dir) {
   // Retourne le nombre de fichier d'un dossier
