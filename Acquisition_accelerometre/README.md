@@ -14,14 +14,14 @@
   - arduino-libraries/SD@^1.2.4 https://github.com/arduino-libraries/SD
 
 ### Algorithme
-- Ouvrir la carte SD
-- Récuperer le nombre de fichiers à la racine
+- calculer le nombre d'itérations à enregistrer selon la période d'échantillonage et la durée d'enregistrement définies au départ.  
+- Récuperer le nombre de fichiers à la racine de la carte SD
 - créer un fichier avec le nom "Acq" + (nb_fichier+1)
-- ouvrir le fichier créé
-- calculer le nombre d'itérations à enregistrer selon la période d'échantillonage
+- lancer la calibration du gyroscope
 - répéter pour le nombre d'itérations nécessaires :
- - Enregistrer dans la carte SD les accélérations sur X, Y et Z
- - Envoyer les données sur le moniteur série
+  - Lire toutes les données fournies par le MPU6050
+  - Enregistrer dans la carte SD les accélérations sur X, Y et Z
+  - Envoyer les données sur le moniteur série
 
 ### A faire
 - indiquer la configuration de la centrale inertielle
@@ -45,7 +45,7 @@
 - **temp** : Température en °C
 - **getAccX, Y, Z** : Accélérations mises à l'échelle en G
 - **gyroX, Y, Z** : Vitesses angulaires mises à l'échelle et avec correction d'offset si le calibrage est demandé.
-- **angleX, Y, Z** : angle X et Y corrigés par rapport à l'inclinaison calculée par rapport à l'accéléromètre et à l'angle calculé calculé par intégration du gyro du même axe. AngleZ uniquement calculé par intégration du gyroZ. Unité : degré
+- **angleX, Y, Z** : angle X et Y corrigés par rapport à l'inclinaison calculée par rapport à l'accéléromètre et à l'angle calculé  par intégration du gyro du même axe. AngleZ uniquement calculé par intégration du gyroZ. Unité : degré
 
 ### tests
 - **Sans lecture capteur écriture SD**
@@ -63,8 +63,7 @@
   - Tsample = 50 ms, Trecord = 5000 ms, Tchrono = 5138 ms
   - Tsample = 100 ms, Trecord = 5000 ms, Tchrono = 5072 ms
 
-** Conclusions du test **
+**Conclusions du test**
 - La bibliothèque utilisée limite la fréquence de lecture des données de la centrale inertielle car la méthode void MPU6050::update() provoque la lecture de toutes les grandeurs physiques fournies par le capteur et le calcul de toutes les grandeurs physiques calculées à partir des mesures.
 - L'écriture des données dans la carte SD prend un temps non négligeable et limite la fréquence d'échantillonage à 20 fois par seconde (Tsample = 50 ms)
-- L'envoie des données sur le port série n'a pas d'impact en regard de la méthode void MPU6050::update() si on utilise une vitesse de transmission élevé (250000 bit/s)
-- **Pour utiliser une fréquence d'échantillonage plus importante, il faut écrire une bibliothèque qui ne lit que les données indispensables.**
+- L'envoie des données sur le port série n'a pas d'impact en regard de la méthode void MPU6050::update() si on utilise une vitesse de transmission élevée (250000 bit/s)

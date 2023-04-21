@@ -20,7 +20,7 @@ Sd2Card card;
 // Sparkfun SD shield: pin 8
 const int chipSelect = 10;
 
-const uint32_t tsample = 100; // Période d'échantillonage en ms
+const uint32_t tsample = 50; // Période d'échantillonage en ms
 const uint16_t trecord = 5; // Temps d'enregistrement en seconde
 const uint32_t iterations = trecord*1000/tsample; // Nombre d'enregistrement à réaliser
 
