@@ -1,7 +1,8 @@
 # Acquisition des données d'une centrale initertielle MPU6050
 
 ### Objectifs :
-  - Enregistrer sur une carte SD les données d'une centrale inertielle MPU6050 à intervalle régulier.
+  - Enregistrer au format CSV sur une carte SD les données d'une centrale inertielle MPU6050 à intervalle régulier.
+  - monitorer les données sur le port série.
   
 ### Architecture :
   - Carte datalogger nano www.deek-robot.com: carte SD, RTC DS1307
