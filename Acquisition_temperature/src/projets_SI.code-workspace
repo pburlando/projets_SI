@@ -17,6 +17,10 @@
 		{
 			"name": "Acquisition_accelerometre",
 			"path": "../../Acquisition_accelerometre"
+		},
+		{
+			"name": "SecurityBenchPress",
+			"path": "../../SecurityBenchPress"
 		}
 	],
 	"settings": {}
