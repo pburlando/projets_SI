@@ -28,41 +28,104 @@ double Setpoint, Input, Output;
 double Kp=2, Ki=5, Kd=1;
 PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, DIRECT);
 
+void arreter();
+void monter(int vitesse);
+void descendre(int vitesse);
+float mesure_courant_moteur();
+void afficher_mesures(long valeur_encodeur, float courant_moteur);
+
 void setup() {
   Serial.begin(115200);  //Ouvrir le port série pour communiquer avec le PC
+
+  //initialize the variables we're linked to PID controler
+  Input = 0;
+  Setpoint = 0;
+  //turn the PID on
+  myPID.SetMode(AUTOMATIC);
   memTime = millis(); // Récupérer le temps courant
 
 }
 
 void loop() {
   static int cpt_boucle; // Pour mémoriser le nombre de boucles effectuées
+  static uint8_t phase; // Pour identifier les phases du mouvement
   // Effectuer une tâche toutes les 50 ms
   if (millis() - memTime > 50) {
     memTime = millis();
-    cpt_boucle ++;
+    long courant_moteur = mesure_courant_moteur();
+    float valeur_encodeur = enc.getCountsEncLT();
+    Input = valeur_encodeur;
+    afficher_mesures(valeur_encodeur, courant_moteur);
+    /*
+    Si la barre n'a pas atteint la position de consigne avec un écart inférieur à 10 points
+      descendre la charge de 20mm
+      afficher la valeur de l'encodeur et la valeur de Imoteur sur le port série
+      
+    Sinon attendre 20 boucles
+    monter la barre de 20 mm
+    Afficher la valeur de l'encodeur et la valeur de Imoteur
+    si l'écart entre la consigne et la valeur réelle est inférieur à 10 points
+      Attendre 20 boucles
+    Tant que Imot < 1.5 A
+      monter la barre
+      
+    */
     
-    if (cpt_boucle < 100) {
-      drv.setSpeeds(255, 0);  // Rotation sens + à vitesse max pendant 5s
-      Serial.println( enc.getCountsEncLT() ); // Afficher le nombre d'impulsions comptées  
+    if ((valeur_encodeur <= 500) && (phase == 0)) {
+      // Si la position basse n'est pas atteinte et qu'on est dans la phase 0 du mouvement
+      Setpoint = 500;
+      descendre(Output);  // Descendre jusqu'à la position de consigne 
     }
     
-    else if (cpt_boucle < 140) {
-      drv.setSpeeds(0, 0);  //Arret moteur pendant 2s          
+    else if (phase == 0) {
+      // Sinon si on est toujours dans la phase 0
+      cpt_boucle = 0;
+      phase = 1;          
     }         
     
-    else if (cpt_boucle < 240) {
-      drv.setSpeeds(-255, 0);  // Rotation sens - à vitesse max pendant 5s
-      Serial.println(enc.getCountsEncLT());           
+    if ((phase == 1) && (cpt_boucle < 40)) {
+      // Rester en position pendant 2s (40x50 ms)
+      descendre(Output);
     }
-    
-    else if (cpt_boucle < 280) {
-      drv.setSpeeds(0, 0);  //Arret moteur pendant 2s          
+    else if (phase == 1) {
+      // Sinon si on est toujours dans la phase 1
+      phase = 2;
+      Setpoint = 0;
     }
-    
-    else {
-      cpt_boucle = 0;         
+
+    if ((phase == 2) && (valeur_encodeur <= 0)) {
+      monter(Output);          
+    } 
+    else if (phase == 2) {
+      cpt_boucle = 0;
+      phase = 3;         
     }
-    
+
+    if ((phase == 3) && (cpt_boucle < 40)) {
+      monter(Output);
+    }
+    else if (phase == 3){
+      phase = 4;         
+    }
+
+    if ((phase == 4) && (courant_moteur < 1.5)) {
+      monter(200);
+    }
+    else if (phase == 4) {
+      arreter();
+      phase = 5;
+      Setpoint = 0;
+    }
+
+    if ((phase == 5) && valeur_encodeur >= 0) {
+      descendre(Output);
+    }
+    else if(phase == 5) {
+      arreter();
+      while(true);
+    }
+
+    cpt_boucle ++;  // Incrémenter le compteur de boucles   
   }  
 }
 
@@ -73,4 +136,23 @@ float mesure_courant_moteur() {
 	 */
   uint16_t sensorValue = analogRead(currentSensorPin);
   return ((float)(sensorValue - 338) * 5 / 0.11) / 1024;
+}
+
+void descendre(int vitesse) {
+  drv.setSpeeds(-vitesse, 0);
+}
+
+void monter(int vitesse) {
+  drv.setSpeeds(vitesse, 0);
+}
+
+void arreter() {
+  drv.setSpeeds(0, 0);
+}
+
+void afficher_mesures(long valeur_encodeur, float courant_moteur){
+  Serial.print(valeur_encodeur);
+  Serial.print(F(", "));
+  Serial.println(courant_moteur);
+
 }

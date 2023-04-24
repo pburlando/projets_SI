@@ -19,9 +19,11 @@ void isrLeft()   {
 	int result = (lastLeftA ^ nouvLeftB) - (nouvLeftA ^ lastLeftB);
 	if (nouvLeftA) {
 		countLeft += result;
+		clockWiseLeft = true;
 	}
 	else {
 		countLeft -= result;
+		clockWiseLeft = false;
 	}
 
 	if((lastLeftA ^ nouvLeftA) & (lastLeftB ^ nouvLeftB))
@@ -43,9 +45,11 @@ void isrRight()   {
 	int result = (lastRightA ^ nouvRightB) - (nouvRightA ^ lastRightB);
 	if (nouvRightA) {
 		countRight -= result;
+		clockWiseRight = false;
 	}
 	else {
 		countRight += result;
+		clockWiseRight = true;
 	}
 
 	if((lastRightA ^ nouvRightA) & (lastRightB ^ nouvRightB))
@@ -63,7 +67,8 @@ IterEncoders::IterEncoders() {
 	/**
 	 * \brief Constructeur de la classe IterEncoders
 	 */
-
+    countLeftOld = 0;
+	countRightOld = 0;
 	 /** Initialisation des interruptions externes
 	 * pour les encodeurs droit et gauche
 	 */
@@ -149,5 +154,35 @@ void IterEncoders::resetCountsEncRT(void) {
 	noInterrupts();
 	countLeft = 0;
 	interrupts();
+
+}
+
+int IterEncoders::getEncLT_state() {
+	long countLeftNew = this->getCountsEncLT();
+	if(countLeftNew - countLeftOld == 0) {
+		countLeftOld = countLeftNew;
+		return 0;
+	}
+	else if(clockWiseLeft) {
+		return 1;
+	}
+	else {
+		return -1;
+	}
+
+}
+
+int IterEncoders::getEncRT_state() {
+	long countRightNew = this->getCountsEncRT();
+	if(countRightNew - countRightOld == 0) {
+		countRightOld = countRightNew;
+		return 0;
+	}
+	else if(clockWiseRight) {
+		return 1;
+	}
+	else {
+		return -1;
+	}
 
 }
