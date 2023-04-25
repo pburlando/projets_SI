@@ -37,8 +37,8 @@ static volatile bool clockWiseLeft;        //! L'encodeur gauche tourne en sens 
 static volatile bool clockWiseRight;       //! L'encodeur droit tourne en sens horaire
 static volatile bool stopLeft;             //! L'encodeur gauche est arrêté
 static volatile bool stopRight;            //! L'encodeur droit est arrêté
-static long countLeftOld;                  //! Mémorisation du nombre de pas de l'encodeur gauche
-static long countRightOld;                 //! Mémorisation du nombre de pas de l'encodeur gauche
+static volatile long countLeftOld;                  //! Mémorisation du nombre de pas de l'encodeur gauche
+static volatile long countRightOld;                 //! Mémorisation du nombre de pas de l'encodeur gauche
 
 
 
@@ -52,8 +52,8 @@ public:
 	long getCountsEncLT(void);
 	void resetCountsEncLT(void);
 	void resetCountsEncRT(void);
-	int getEncLT_state(void);
-	int getEncRT_state(void);
+	int getStateEncLT(void);
+	int getStateEncRT(void);
 
 };
 

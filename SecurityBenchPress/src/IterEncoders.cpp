@@ -157,7 +157,7 @@ void IterEncoders::resetCountsEncRT(void) {
 
 }
 
-int IterEncoders::getEncLT_state() {
+int IterEncoders::getStateEncLT() {
 	long countLeftNew = this->getCountsEncLT();
 	if(countLeftNew - countLeftOld == 0) {
 		countLeftOld = countLeftNew;
@@ -172,7 +172,7 @@ int IterEncoders::getEncLT_state() {
 
 }
 
-int IterEncoders::getEncRT_state() {
+int IterEncoders::getStateEncRT() {
 	long countRightNew = this->getCountsEncRT();
 	if(countRightNew - countRightOld == 0) {
 		countRightOld = countRightNew;

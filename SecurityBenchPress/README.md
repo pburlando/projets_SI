@@ -35,3 +35,4 @@
   -- Attendre 5s
   -- Monter la barre jusqu'au blocage
   -- Arreter le mouvement si le courant dépasse 150% du courant en montée
+- dessiner le diagramme d'état

@@ -24,6 +24,8 @@ DRVL298NMotorShield drv(CDEMOTEURDIR, CDEMOTEURPWM, 7, 8, true, false);  //**  P
 IterEncoders enc;
 
 unsigned long memTime = 0L; // Pour exécuter une tâche à intervalle régulier
+uint8_t phase; // Pour identifier les phases du mouvement
+
 double Setpoint, Input, Output;
 double Kp=2, Ki=5, Kd=1;
 PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, DIRECT);
@@ -32,11 +34,11 @@ void arreter();
 void monter(int vitesse);
 void descendre(int vitesse);
 float mesure_courant_moteur();
-void afficher_mesures(long valeur_encodeur, float courant_moteur);
+void afficher_mesures(int sens_deplacement, long valeur_encodeur, float courant_moteur);
 
 void setup() {
   Serial.begin(115200);  //Ouvrir le port série pour communiquer avec le PC
-
+  phase = 0; // Initialiser la séquence des déplacement
   //initialize the variables we're linked to PID controler
   Input = 0;
   Setpoint = 0;
@@ -47,15 +49,15 @@ void setup() {
 }
 
 void loop() {
-  static int cpt_boucle; // Pour mémoriser le nombre de boucles effectuées
-  static uint8_t phase; // Pour identifier les phases du mouvement
+  static int cpt_boucle; // Pour mémoriser le nombre de boucles effectuées 
   // Effectuer une tâche toutes les 50 ms
   if (millis() - memTime > 50) {
     memTime = millis();
+    int sens_deplacement = enc.getStateEncLT();
     long courant_moteur = mesure_courant_moteur();
     float valeur_encodeur = enc.getCountsEncLT();
     Input = valeur_encodeur;
-    afficher_mesures(valeur_encodeur, courant_moteur);
+    afficher_mesures(sens_deplacement, valeur_encodeur, courant_moteur);
     /*
     Si la barre n'a pas atteint la position de consigne avec un écart inférieur à 10 points
       descendre la charge de 20mm
@@ -150,9 +152,12 @@ void arreter() {
   drv.setSpeeds(0, 0);
 }
 
-void afficher_mesures(long valeur_encodeur, float courant_moteur){
+void afficher_mesures(int sens_deplacement, long valeur_encodeur, float courant_moteur){
+  String separateur = F(", ");
+  Serial.print(sens_deplacement);
+  Serial.print(separateur);
   Serial.print(valeur_encodeur);
-  Serial.print(F(", "));
+  Serial.print(separateur);
   Serial.println(courant_moteur);
 
 }
