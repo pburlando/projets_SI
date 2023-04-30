@@ -1,0 +1,3 @@
+Enter AT commands:
+Chaine recu
++INQ:98D3:51:FE877B,1F00,FFC2\r\n+INQ:98D3:51:FE877B,1F00,FFBC\r\nOK\r\n

@@ -15,7 +15,6 @@ DRVL298NMotorShield::DRVL298NMotorShield(uint8_t mgDir, uint8_t mgPwm, uint8_t m
 	: _mgDir(mgDir), _mgPwm(mgPwm), _mdDir(mdDir), _mdPwm(mdPwm), _mgFlip(mgFlip), _mdFlip(mdFlip) {
 		/**
 		 * @brief Construct a new pin Mode object
-		 * 
 		 */
 		pinMode(_mgDir, OUTPUT);
 		pinMode(_mgPwm, OUTPUT);

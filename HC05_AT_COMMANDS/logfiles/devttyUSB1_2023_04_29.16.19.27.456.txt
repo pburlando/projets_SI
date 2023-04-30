@@ -1,0 +1,11 @@
+Enter AT commands:
+Chaine recu
+116
+Chaine recu
+101
+Chaine recu
+115
+Chaine recu
+116
+Chaine recu
+1310

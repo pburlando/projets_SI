@@ -8,10 +8,6 @@
 			"path": ".."
 		},
 		{
-			"name": "CdeAT_BT_mod",
-			"path": "../../../../PlatformIO/Projects/CdeAT_BT_mod"
-		},
-		{
 			"path": "../../../../PlatformIO/Projects/BTI"
 		},
 		{
@@ -21,6 +17,14 @@
 		{
 			"name": "SecurityBenchPress",
 			"path": "../../SecurityBenchPress"
+		},
+		{
+			"name": "HC05_AT_COMMANDS",
+			"path": "../../HC05_AT_COMMANDS"
+		},
+		{
+			"name": "manipulation_chaines_caracteres",
+			"path": "../../manipulation_chaines_caracteres"
 		}
 	],
 	"settings": {}
