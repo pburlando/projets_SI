@@ -1,0 +1,11 @@
+
+-1, 209
+91:FE3DB8,1F00,FFD4OK
+209, 212
+Chaine lue : 60 bytes : +INQ:98D3:91:FE3DB8,1F00,FFD3+INQ:98D3:91:FE3DB8,1F00,FFD1OK
+-1, 209
+Chaine lue : 2 bytes : OK
+-1, -1
+Requete AT+INQ envoye
+Requete AT+INQ envoye
+Requete AT+INQ envoye

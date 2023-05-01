@@ -1,0 +1,12 @@
+Chaine lue : 2 bytes : OK
+-1, -1
+Requete AT+INQ envoye
+Requete AT+INQ envoye
+Requete AT+INQ envoye
+Requete AT+INQ envoye
+Requete AT+INQ envoye
+Requete AT+INQ envoye
+Requete AT+INQ envoye
+Requete AT+INQ envoye
+Chaine lue : 17 bytes : +DISC:LINK_LOSSOK
+-1, -1

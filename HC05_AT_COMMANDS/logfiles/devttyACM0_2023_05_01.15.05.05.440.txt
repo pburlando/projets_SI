@@ -1,0 +1,142 @@
+Chaine lue : 64 bytes : FAIL+INQ:98D3:91:FE3DB8,1F00,FFD6+INQ:98D3:91:FE3DB8,1F00,FFD6OK
+-1, 0
+Requete AT+INQ envoye
+Chaine lue : 60 bytes : +INQ:98D3:91:FE3DB8,1F00,FFD0+INQ:98D3:91:FE3DB8,1F00,FFD6OK
+-1, 214
+Requete AT+INQ envoye
+Chaine lue : 60 bytes : +INQ:98D3:91:FE3DB8,1F00,FFD2+INQ:98D3:91:FE3DB8,1F00,FFD4OK
+-1, 212
+Requete AT+INQ envoye
+Chaine lue : 60 bytes : +INQ:98D3:91:FE3DB8,1F00,FFD5+INQ:98D3:91:FE3DB8,1F00,FFD9OK
+-1, 217
+Requete AT+INQ envoye
+Chaine lue : 122 bytes : +INQ:98D3:91:FE3DB8,1F00,FFD8+INQ:98D3:91:FE3DB8,1F00,FFD9FAIL+INQ:98D3:91:FE3DB8,1F00,FFD6+INQ:98D3:91:FE3DB8,1F00,FFD7OK
+-1, 217
+Chaine lue : 60 bytes : +INQ:98D3:91:FE3DB8,1F00,FFD7+INQ:98D3:51:FE877B,1F00,FFD0OK
+215, 208
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Requete AT+INQ envoye
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Requete AT+INQ envoye
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Requete AT+INQ envoye
+Chaine lue : 118 bytes : +INQ:98D3:91:FE3DB8,1F00,FFD6+INQ:98D3:91:FE3DB8,1F00,FFD3+INQ:98D3:91:FE3DB8,1F00,FFD6+INQ:98D3:91:FE3DB8,1F00,FFD7OK
+-1, 211
+Requete AT+INQ envoye
+Chaine lue : 60 bytes : +INQ:98D3:91:FE3DB8,1F00,FFD5+INQ:98D3:91:FE3DB8,1F00,FFD7OK
+-1, 215
+Chaine lue : 60 bytes : +INQ:98D3:91:FE3DB8,1F00,FFD5+INQ:98D3:91:FE3DB8,1F00,FFD8OK
+-1, 216
+Chaine lue : 60 bytes : +INQ:98D3:91:FE3DB8,1F00,FFD5+INQ:98D3:91:FE3DB8,1F00,FFD2OK
+-1, 210
+Requete ATvoye
++INQ enChaine lue : 60 bytes : +INQ:98D3:91:FE3DB8,1F00,FFD6+INQ:98D3:91:FE3DB8,1F00,FFD6OK
+-1, 214
+Chaine lue : 35 bytes : +INQ:98D3:91:FE3DB8,1F00,FFD3FAILOK
+-1, 211
+Chaine lue : 60 bytes : +INQ:98D3:91:FE3DB8,1F00,FFD3+INQ:98D3:91:FE3DB8,1F00,FFD6OK
+-1, 214
+Chaine lue : 60 bytes : +INQ:98D3:91:FE3DB8,1F00,FFD1+INQ:98D3:91:FE3DB8,1F00,FFD4OK
+-1, 212
+Chaine lue : 60 bytes : +INQ:98D3:91:FE3DB8,1F00,FFD6+INQ:98D3:91:FE3DB8,1F00,FFD4OK
+-1, 212
+Requete AT+INQ envoye
+Chaine lue : 31 bytes : +INQ:98D3:91:FE3DB8,1F00,FFD7OK
+-1, 215
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Requete AT+INQ envoye
+Chaine lue : 2 bytes : OK
+-1, -1
+Requete AT+INQ envoye
+Requete AT+INQ envoye
+Requete AT+INQ envoye

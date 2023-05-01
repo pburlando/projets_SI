@@ -1,14 +1,17 @@
 /**
- * @brief Programme de test pour récupérer et traiter la réponse
- * à la commande AT+INQ de deux modules bluetooth esclaves 
- * 
+ * @brief Programme de test pour envoyer la commande AT+INQ au module BT HC05 maître
+ * puis récupérer et traiter la réponse de deux modules bluetooth esclaves 
+ * Affiche la valeur des taux de réception rssi1, rssi2
+ * des modules BT HC05 esclaves d'adresses :
+ * 98D3:91:FE3DB8
+ * 98D3:51:FE877B
 */
 
 #include <Arduino.h>
 #include <SoftwareSerial.h>
 const int keyPin = 5; // key à brancher sur le module HC05
 
-SoftwareSerial mySerial(10, 11); // RX, TX arduino à brancher au TX, RX sur le module HC05 (lignes croisées)
+SoftwareSerial btSerial(10, 11); // RX, TX arduino à brancher au TX, RX sur le module HC05 (lignes croisées)
 String inputString = "";      // a String to hold incoming data
 bool stringComplete = false;  // whether the string is complete
 
@@ -24,7 +27,7 @@ unsigned int hex_to_int(const char* chaine);
 
 void setup() 
 {
-  // reserve 200 bytes for the inputString:
+  // reserver 200 octets pour la chaine d'entrée:
   inputString.reserve(200);
   // Passage en commande AT logiciellement Datasheet HC05 page 1 How to get to the AT mode way 1 
   pinMode(keyPin, OUTPUT);
@@ -33,9 +36,9 @@ void setup()
   digitalWrite(keyPin, HIGH); 
   delay(800);
   Serial.begin(9600); // Port série connecté entre un PC avec moniteur série et un arduino  
-  mySerial.begin(9600);  // Port série connecté entre un arduino et un module HC05
-  mySerial.setTimeout(500); //Timeout de la communication avec le module BT à 5s
-  memTime = millis();
+  btSerial.begin(9600);  // Port série connecté entre un arduino et un module HC05
+  btSerial.setTimeout(500); //Timeout de la communication avec le module BT à 0.5 s
+  memTime = millis(); // Enregistrer le temps courant en ms dans memTime
   
 
 }
@@ -46,12 +49,12 @@ void loop() {
   {
     memTime = millis();
     Serial.println(F("Requete AT+INQ envoye"));
-    mySerial.print("AT+INQ\r\n");
+    btSerial.print("AT+INQ\r\n");  //Envoyer la requête sur le module BT HC05 Maitre
   }
   
-  if (mySerial.available() > 0) {
-    char inChar = (char)mySerial.read();
-    // add it to the inputString:
+  if (btSerial.available() > 0) {
+    char inChar = (char)btSerial.read();
+    // Ajouter le caractère reçu sauf si c'est un caractère spécial retour chariot ou aller à ligne
     if((inChar != '\r'))
     {
       if(inChar != '\n')
@@ -60,21 +63,20 @@ void loop() {
       }
     }
   
-    
-    // if the incoming character is a newline, set a flag so the main loop can
-    // do something about it:
     if(inputString.lastIndexOf("OK") != -1)
+    // Si la chaine reçu se termine par OK
     {
-      //Serial.println("OK trouve");
-      inputString.trim();
+      // La chaine est complete, elle peut être analysée
       stringComplete = true;
     }
     else if(inputString.lastIndexOf("ERROR") != -1)
+    // Si la chaine reçu contient ERROR
     {
-      if (inChar == '\n') 
+      if (inChar == '\n')
+      // Si on reçoit un caractère aller à la ligne
       {
-        inputString.trim();
-        stringComplete = true;
+        inputString.trim();     //Enlever les espaces et les caractères spéciaux de la chaine reçu
+        stringComplete = true;  // La chaine est complete, elle peut être analysée
       }
     }
 

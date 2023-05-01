@@ -1,0 +1,5 @@
+:98D3:51:FE877B,1F00,FFD2+INQ:98D3:51:FE877B,1F00,FFD2OK
+210, -1
+Requete AT+INQ envoye
+Chaine lue : 2 bytes : OK
+-1, -1

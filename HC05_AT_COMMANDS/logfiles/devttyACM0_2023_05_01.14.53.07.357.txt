@@ -1,0 +1,2 @@
+Requete AT+INQ envoye
+Requete AT+INQ envoye

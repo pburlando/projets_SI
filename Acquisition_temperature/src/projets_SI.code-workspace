@@ -23,10 +23,6 @@
 			"path": "../../HC05_AT_COMMANDS"
 		},
 		{
-			"name": "manipulation_chaines_caracteres",
-			"path": "../../manipulation_chaines_caracteres"
-		},
-		{
 			"name": "bonnet_connecte",
 			"path": "../../bonnet_connecte"
 		},
