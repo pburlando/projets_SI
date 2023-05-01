@@ -54,7 +54,7 @@ void loop() {
   
   if (btSerial.available() > 0) {
     char inChar = (char)btSerial.read();
-    // Ajouter le caractère reçu sauf si c'est un caractère spécial retour chariot ou aller à ligne
+    // Ajouter le caractère reçu à inputString sauf si c'est un caractère spécial retour chariot ou aller à ligne
     if((inChar != '\r'))
     {
       if(inChar != '\n')
