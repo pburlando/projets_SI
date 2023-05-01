@@ -16,11 +16,13 @@
 - Utilise le port série de l'arduino UNO pour se connecter au moniteur série du PC
 
 ### Algorithme
-- répéter le plus rapidement possible :
-  - Si un caractère est envoyé par le module BT HC05
-    - Afficher le caractère sur le moniteur série du PC
-  - Si un caractère est envoyé par le moniteur série du PC
-    - Envoyer le caractère au module BT HC05
+```
+répéter le plus rapidement possible :
+  Si un caractère est envoyé par le module BT HC05
+    Afficher le caractère sur le moniteur série du PC
+  Si un caractère est envoyé par le moniteur série du PC
+     Envoyer le caractère au module BT HC05
+```
 
 ### A faire
 - modifier le schéma pour commander l'alimentation du module BT par un port de sortie car pour passer en mode commande AT, **key** doit être 0 quand le module est alimenté puis doit passer à 1. Actuellement si le module maître se connecte à un esclave (led clignote 2x puis extinction longue), le traitement des commandes AT est interrompu. Il faut alors couper l'alimentation des esclaves puis du maitre et relancer le maître d'abord puis les esclaves.
