@@ -29,4 +29,4 @@ répéter le plus rapidement possible :
 - Configurer le maître et/ou les esclaves pour qu'ils ne se connectent pas.
 
 ### Schéma
-/HC05_AT_COMMANDS/HC05_uno_commande_AT_bb.jpg
+/HC05_uno_commande_AT_bb.jpg
