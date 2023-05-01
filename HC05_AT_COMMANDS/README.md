@@ -1,33 +1,27 @@
 # Commande AT pour module HC05
 
 ### Objectifs
-- Envoyer des commandes AT sur un module BT HC05 maître via un moniteur série
-- Recevoir les réponses du ou des modules BT HC05 esclaves sur le moniteur série
+- Envoyer des commandes AT sur un module BT HC05 maître via un moniteur série. Ce module maître est capable d'envoyer des requêtes aux modules esclaves dans son environnement. 
+- Recevoir les réponses et les afficher sur le moniteur série
+  -- du module maître pour des requêtes internes (Exemple: AT+NAME)
+  -- du ou des modules BT HC05 esclaves pour des requêtes de type AT+INQ
+
+### Références 
+- voir schéma et documents techniques pdf
+- **Remarque** : Quand le module BT maître accepte les commandes AT, sa led clignote rapidement.
 
 ### Architecture
-- Utilise sofwareSerial pour se connecter le module BT HC05
+- Utilise sofwareSerial pour se connecter au module BT HC05
 - Utilise l'entrée **key** du module BT HC05 pour passer en mode commande AT
-- Utilise le port série de l'arduino NANO pour se connecter au moniteur série du PC
-
-### Communication
-- requête "AT+INQ\r\n"
-- réponses possibles :
-  -- Les deux modules répondent :
-    --- +INQ:98D3:91:FE3DB8,1F00,FFC7
-    --- +INQ:98D3:51:FE877B,1F00,FFC7
-    --- OK
-  -- Un des deux modules répond :
-    --- +INQ:98D3:51:FE877B,1F00,FFC2
-    --- +INQ:98D3:51:FE877B,1F00,FFBC
-    --- OK
-  -- Aucun module ne répond (temps d'attente 33 s max )
+- Utilise le port série de l'arduino UNO pour se connecter au moniteur série du PC
 
 ### Algorithme
-- Répéter toutes les 2s
-  --  lancer la requête
-  --  Tant qu'il y a des caractères disponibles sur sofwareSerial
-    --- Accumuler les caratères dans la chaine de réception (66 char)
-    --- Si les deux derniers forment la sous chaine OK :
-       ---- séparer en sous chaine avec les caractères \r\n
+- répéter le plus rapidement possible :
+  -- Si un caractère est envoyé par le module BT HC05
+    --- Afficher le caractère sur le moniteur série du PC
+  -- Si un caractère est envoyé par le moniteur série du PC
+    --- Envoyer le caractère au module BT HC05
 
-+INQ:98D3:51:FE877B,1F00,FFC2\r\n+INQ:98D3:91:FE877B,1F00,FFBC\r\nOK
+### A faire
+- modifier le schéma pour commander l'alimentation du module BT par un port de sortie car pour passer en mode commande AT, **key** doit être 0 quand le module est alimenté puis doit passer à 1. Actuellement si le module maître se connecte à un esclave (led clignote 2x puis extinction longue), le traitement des commandes AT est interrompu. Il faut alors couper l'alimentation des esclaves puis du maitre et relancer le maître d'abord puis les esclaves.
+- Configurer le maître et/ou les esclaves pour qu'ils ne se connectent pas. 
