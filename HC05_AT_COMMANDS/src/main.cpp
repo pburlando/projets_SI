@@ -14,12 +14,9 @@ void setup()
   
   pinMode(keyPin, OUTPUT);
   digitalWrite(keyPin, LOW);
-  delay(1000);
-  
-  Serial.begin(9600); // Port série connecté entre un PC avec moniteur série et un arduino
-  
-  Serial.println("Enter AT commands:");
-  
+  delay(1000); 
+  Serial.begin(9600); // Port série connecté entre un PC avec moniteur série et un arduino 
+  Serial.println("Enter AT commands:"); 
   mySerial.begin(9600);  // Port série connecté entre un arduino et un module HC05
   digitalWrite(keyPin, HIGH); // Passage en commande AT logiciellement Datasheet HC05 page 1 How to get to the AT mode way 1 
 

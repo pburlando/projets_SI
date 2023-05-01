@@ -1,0 +1,144 @@
+Chaine recu
+OK
+-1, -1
+Chaine recu
+OK
+-1, -1
+Chaine recu
+OK
+-1, -1
+Chaine recu
+OK
+-1, -1
+Chaine recu
++INQ:98D3:51:FE877B,1F00,FFC9
+-1, -1
+Chaine recu
++INQ:98D3:91:FE3DB8,1F00,FFCB
+-1, -1
+Chaine recu
+O
+-1, -1
+Chaine recu
++INQ:98D3:51:FE877B,1F00,FFC4
+-1, -1
+Chaine recu
++INQ:98D3:91:FE3DB8,1F00,FFCA
+-1, -1
+Chaine recu
+O+INQ:98D3:91:FE3DB8,1F00,FFCA
+-1, -1
+Chaine recu
++INQ:98D3:51:FE877B,1F00,FFC3
+-1, -1
+Chaine recu
+OK
+-1, -1
+Chaine recu
++INQ:98D3:51:FE877B,1F00,FFC+INQ:98D3:91:FE3DB8,1F00,FFC6
+-1, -1
+Chaine recu
++INQ:98D3:51:FE877B,1F00,FFC5
+-1, -1
+Chaine recu
+OK
+-1, -1
+Chaine recu
++INQ:98D3:91:FE3DB8,1F00,FFC+INQ:98D3:91:FE3DB8,1F00,FFBF
+-1, -1
+Chaine recu
++INQ:98D3:51:FE877B,1F00,FFC5
+-1, -1
+Chaine recu
+OK
+-1, -1
+Chaine recu
++INQ:98D3:91:FE3DB8,1F00,FFC+INQ:98D3:91:FE3DB8,1F00,FFC5
+-1, -1
+Chaine recu
++INQ:98D3:91:FE3DB8,1F00,FFC9
+-1, -1
+Chaine recu
+OK
+-1, -1
+Chaine recu
++INQ:98D3:91:FE3DB8,1F00,FFC+INQ:98D3:51:FE877B,1F00,FFC7
+-1, -1
+Chaine recu
++INQ:98D3:51:FE877B,1F00,FFC5
+-1, -1
+Chaine recu
+OK
+-1, -1
+Chaine recu
++INQ:98D3:51:FE877B,1F00,FFC+INQ:98D3:51:FE877B,1F00,FFC6
+-1, -1
+Chaine recu
++INQ:98D3:51:FE877B,1F00,FFC8
+-1, -1
+Chaine recu
+OK
+-1, -1
+Chaine recu
++INQ:98D3:51:FE877B,1F00,FFC
+-1, -1
+Chaine recu
++INQ:98D3:91:FE3DB8,1F00,FFCC
+-1, -1
+Chaine recu
++INQ:98D3:91:FE3DB8,1F00,FFCD
+-1, -1
+Chaine recu
+O
+-1, -1
+Chaine recu
++INQ:98D3:91:FE3DB8,1F00,FFBD
+-1, -1
+Chaine recu
+OK
+-1, -1
+Chaine recu
++INQ:98D3:91:FE3DB8,1F00,FFC+INQ:98D3:91:FE3DB8,1F00,FFC7
+-1, -1
+Chaine recu
+OK
+-1, -1
+Chaine recu
++INQ:98D3:91:FE3DB8,1F00,FFB4
+-1, -1
+Chaine recu
++INQ:98D3:91:FE3DB8,1F00,FFBE
+-1, -1
+Chaine recu
+O+INQ:98D3:51:FE877B,1F00,FFC9
+-1, -1
+Chaine recu
++INQ:98D3:51:FE877B,1F00,FFC8
+-1, -1
+Chaine recu
+OK
+-1, -1
+Chaine recu
++INQ:98D3:51:FE877B,1F00,FFCB
+-1, -1
+Chaine recu
++INQ:98D3:51:FE877B,1F00,FFC7
+-1, -1
+Chaine recu
+O+INQ:98D3:51:FE877B,1F00,FFC7
+-1, -1
+Chaine recu
++INQ:98D3:51:FE877B,1F00,FFCA
+-1, -1
+Chaine recu
+OK
+-1, -1
+Chaine recu
++INQ:98D3:51:FE877B,1F00,FFC8
+-1, -1
+Chaine recu
++INQ:98D3:51:FE877B,1F00,FFCB
+-1, -1
+Chaine recu
+O+INQ:98D3:51:FE877B,1F00,FFC9
+-1, -1

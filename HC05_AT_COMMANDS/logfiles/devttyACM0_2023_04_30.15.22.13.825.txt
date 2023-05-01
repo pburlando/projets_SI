@@ -1,0 +1,12 @@
+1
+Commande a envoyer: ATNAME\r\n\0�
+OKME:HC-05�wO��M\=[�R������1
+Pas d'erreur
+1
+Commande a envoyer: ATNAME\r\n\0�
+OKME:HC-05�wO��M\=[�R������1
+Pas d'erreur
+1
+Commande a envoyer: AT+MODEr\n\0�
+ERROR:(0)5�wO��M\=[�R������1
+Pas d'erreur

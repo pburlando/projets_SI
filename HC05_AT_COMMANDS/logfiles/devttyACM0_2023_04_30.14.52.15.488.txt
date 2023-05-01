@@ -1,0 +1,4 @@
+Commande �� envoyer: AT
+OK
+Commande �� envoyer: AT+NAME
+OK

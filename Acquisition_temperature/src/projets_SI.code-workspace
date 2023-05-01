@@ -25,6 +25,18 @@
 		{
 			"name": "manipulation_chaines_caracteres",
 			"path": "../../manipulation_chaines_caracteres"
+		},
+		{
+			"name": "bonnet_connecte",
+			"path": "../../bonnet_connecte"
+		},
+		{
+			"name": "AT_COMMANDS_V2",
+			"path": "../../../../PlatformIO/Projects/AT_COMMANDS_V2"
+		},
+		{
+			"name": "AT_COMMANDS_V3",
+			"path": "../../../../PlatformIO/Projects/AT_COMMANDS_V3"
 		}
 	],
 	"settings": {}

@@ -1,0 +1,12 @@
+Chaine recu
+OK
+-1, -1
+Chaine recu
+OK
+-1, -1
+Chaine recu
+OK
+-1, -1
+Chaine recu
++DISC:LINK_LOSS
+-1, -1

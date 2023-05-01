@@ -1,0 +1,7 @@
+Commande a envoyer: AT+NAME
+OK
+Pas d'erreur
+Commande a envoyer: AT+ROLE
+Commande a envoyer: AT+INQ
++ROLE:1
+Pas d'erreur

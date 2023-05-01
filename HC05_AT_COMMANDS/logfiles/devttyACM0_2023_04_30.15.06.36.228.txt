@@ -1,0 +1,12 @@
+Commande a envoyer: AT��{��
+OK�O����/�wO��M\=[�R������r}P{z��R�v��G9�~�uu����rT��w>��AT��{��
+Pas d'erreur
+Commande a envoyer: AT+NAME�
+ERROR:(0)/�wO��M\=[�R������r}P{z��R�v��G9�~�uu����rT��w>��AT+NAME�
+Pas d'erreur
+Commande a envoyer: AT+NAME\r\nY�
+ERROR:(0)/�wO��M\=[�R������r}P{z��R�v��G9�~�uu�����rT��w>��AT+NAME\r\nY�
+Pas d'erreur
+Commande a envoyer: AT+NAME\r\n\0�
++NAME:HC-05�wO��M\=[�R������r}P{z��R�v��G9�~�uu�����rT��w>��AT+NAME\r\n\0�
+Pas d'erreur

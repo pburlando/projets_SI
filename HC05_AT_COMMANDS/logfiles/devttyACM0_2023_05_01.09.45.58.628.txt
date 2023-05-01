@@ -1,0 +1,10 @@
+Commande a envoyer: AT+ROLE
+Chaine lue : 11 bytes : +ROLE:1
+OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1
+Chaine lue : 2 bytes : OK
+-1, -1

@@ -1,0 +1,5 @@
+AT+MODEr\n\0�
+1
+Commande a envoyer: ATMODEr\n\0�
+OKOR:(0)5�wO��M\=[�R������1
+Pas d'erreur
