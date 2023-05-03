@@ -33,6 +33,9 @@
 		{
 			"name": "AT_COMMANDS_V3",
 			"path": "../../../../PlatformIO/Projects/AT_COMMANDS_V3"
+		},
+		{
+			"path": "../../../../PlatformIO/Projects/SBP_test"
 		}
 	],
 	"settings": {}

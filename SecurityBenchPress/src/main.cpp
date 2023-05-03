@@ -12,13 +12,13 @@
 
 // Brochage
 
-// Les broches 5 et 3 sont réservées à l'encodeur gauche
+// Les broches 5 et 3 sont réservées à l'encodeur gauche  fils Jaune et Gris
 // Les broches 4 et 2 sont réservées à l'encodeur droit
 
-#define CDEMOTEURDIR 9
-#define CDEMOTEURPWM 10
+#define CDEMOTEURDIR 9   // fil jaune
+#define CDEMOTEURPWM 10  // fil bleu
 
-const int currentSensorPin = A0;
+const int currentSensorPin = A0;  // Fil vert
 
 DRVL298NMotorShield drv(CDEMOTEURDIR, CDEMOTEURPWM, 7, 8, true, false);  //**  Pilotage du moteur à courant continu, broches 9 et 10 utilisées, broches 7 et 8 réservées
 IterEncoders enc;
