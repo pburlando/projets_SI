@@ -36,7 +36,13 @@
 		},
 		{
 			"path": "../../../../PlatformIO/Projects/SBP_test"
+		},
+		{
+			"name": "Cde_LED_Serial",
+			"path": "../../Cde_LED_Serial"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"cmake.options.statusBarVisibility": "visible"
+	}
 }
