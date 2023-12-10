@@ -6,26 +6,28 @@
    puis saisir la chaine de caractères on ou off et cliquer sur envoyer
 */
 
+// directives de compilation
 #include <Arduino.h>
 
+// définition des variables globales
 const int led_pin = 2;
-bool chaine_complete = false;
-String chaine = "";
+bool chaine_complete = false;  // variable binaire qui indique que la chaîne de caractères reçue sur le port série est complète
+String chaine = "";            // variable qui contient la chaine de caractères reçue dans le buffer du port série
 
 void setup()
 {
   pinMode(led_pin,OUTPUT);
-  Serial.begin(9600);
+  Serial.begin(9600);       //  initialisation de la connexion série débit 9600 bits par seconde
 }
 
 void loop()
 {
-  if (Serial.available() > 0) //s'il y a des données qui arrivent
+  if (Serial.available() > 0) //  s'il y a des données présentes  dans le buffer d'entrée du port série
   {
-    char caractereRecu = Serial.read(); //Lecture d'une caractere dans le tampon série
+    char caractereRecu = Serial.read(); //  Lecture d'une caractere dans le buffer d'entrée du port série
     if ((caractereRecu == '\n') | (caractereRecu == '\r')) // Si le caractère reçu est un caractère de fin de ligne
     {
-      chaine_complete = true;
+      chaine_complete = true;  // la chaîne reçue est complète
     }
     else
     {

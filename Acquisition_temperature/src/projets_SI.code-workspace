@@ -40,6 +40,10 @@
 		{
 			"name": "Cde_LED_Serial",
 			"path": "../../Cde_LED_Serial"
+		},
+		{
+			"name": "AquisitionAnalogique",
+			"path": "../../AquisitionAnalogique"
 		}
 	],
 	"settings": {
