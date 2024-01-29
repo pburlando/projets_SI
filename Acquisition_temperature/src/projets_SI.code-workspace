@@ -44,6 +44,10 @@
 		{
 			"name": "AquisitionAnalogique",
 			"path": "../../AquisitionAnalogique"
+		},
+		{
+			"name": "dataLoggerAdafruit",
+			"path": "../../dataLoggerAdafruit"
 		}
 	],
 	"settings": {
