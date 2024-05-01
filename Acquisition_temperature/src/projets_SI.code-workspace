@@ -48,6 +48,10 @@
 		{
 			"name": "dataLoggerAdafruit",
 			"path": "../../dataLoggerAdafruit"
+		},
+		{
+			"name": "CrossFitConnect",
+			"path": "../../CrossFitConnect"
 		}
 	],
 	"settings": {
