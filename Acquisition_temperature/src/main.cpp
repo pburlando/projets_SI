@@ -7,7 +7,7 @@ sur dataLogger Arduino Nano, carte SD et RTC DS1307
 
 */
 
-#define SAMPLE_PERIOD  15000
+#define SAMPLE_PERIOD  10*60*1000L
 
 #include <Arduino.h>
 
