@@ -56,6 +56,14 @@
 		{
 			"name": "GroveTempSensor",
 			"path": "../../GroveTempSensor/GroveTempSensor"
+		},
+		{
+			"name": "Iboum",
+			"path": "../../Iboum"
+		},
+		{
+			"name": "IboumNano",
+			"path": "../../IboumNano"
 		}
 	],
 	"settings": {
