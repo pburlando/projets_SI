@@ -64,6 +64,14 @@
 		{
 			"name": "IboumNano",
 			"path": "../../IboumNano"
+		},
+		{
+			"name": "ChariotGolfNanoHF",
+			"path": "../../ChariotGolfNanoHF"
+		},
+		{
+			"name": "thermoCord",
+			"path": "../../thermoCord"
 		}
 	],
 	"settings": {
