@@ -22,7 +22,7 @@ void loop()
 {
   byte rgb[3];
   double saturation = 0.9;
-  double value = 0.8;
+  double value = 0.3;
   val_a0 = analogRead(tmp236_pin);
   float voltage = val_a0 * 5.0 / 1024.0;
   float temperature = 51.27 * voltage - 20.51;

@@ -72,6 +72,10 @@
 		{
 			"name": "thermoCord",
 			"path": "../../thermoCord"
+		},
+		{
+			"name": "TMP236_RVB_Nano",
+			"path": "../../../../PlatformIO/Projects/TMP236_RVB_Nano"
 		}
 	],
 	"settings": {
